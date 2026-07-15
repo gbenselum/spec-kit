@@ -4,7 +4,7 @@
 
 **Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
-**Note**: This template is filled in by the `__SPECKIT_COMMAND_PLAN__` command. See `.specify/templates/plan-template.md` for the execution workflow.
+**Note**: This template is filled in during the planning phase. See `SKILL.md` for the full execution workflow.
 
 ## Summary
 
@@ -14,7 +14,7 @@
 
 <!--
   ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
+  for the project. The structure here is presented in an advisory capacity to guide
   the iteration process.
 -->
 
@@ -48,12 +48,12 @@
 
 ```text
 specs/[###-feature]/
-├── plan.md              # This file (__SPECKIT_COMMAND_PLAN__ command output)
-├── research.md          # Phase 0 output (__SPECKIT_COMMAND_PLAN__ command)
-├── data-model.md        # Phase 1 output (__SPECKIT_COMMAND_PLAN__ command)
-├── quickstart.md        # Phase 1 output (__SPECKIT_COMMAND_PLAN__ command)
-├── contracts/           # Phase 1 output (__SPECKIT_COMMAND_PLAN__ command)
-└── tasks.md             # Phase 2 output (__SPECKIT_COMMAND_TASKS__ command - NOT created by __SPECKIT_COMMAND_PLAN__)
+├── plan.md              # Technical implementation plan (this file)
+├── research.md          # Technology choices and research findings
+├── data-model.md        # Schema, databases, and entity definitions
+├── quickstart.md        # Quick validation guide and setup steps
+├── contracts/           # API payloads, interface files, schemas
+└── tasks.md             # Actionable checklist of implementation steps (created next)
 ```
 
 ### Source Code (repository root)

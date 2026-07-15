@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "$ARGUMENTS"
+**Input**: User description: "[Brief natural language description of the feature requirements]"
 
 ## User Scenarios & Testing *(mandatory)*
 
