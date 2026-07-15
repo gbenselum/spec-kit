@@ -1,8 +1,8 @@
-# 🌱 Spec Kit
+# 🌱 Spec Kit: DevOps & SRE Edition
 
-**Spec Kit** is a lightweight Custom Skill for Spec-Driven Development (SDD) designed for AI coding assistants like Claude (via Claude Code or Claude Desktop customizations).
+**Spec Kit** is a lightweight Custom Skill for Spec-Driven Development (SDD) designed for AI coding assistants like Claude (via Claude Code or Claude Desktop customizations), focused entirely on **Infrastructure as Code (IaC), CI/CD pipelines, SRE observability, and cloud security architecture**.
 
-By treating specifications as executable documentation, Spec Kit guides your AI agent through a predictable, high-quality development lifecycle using structured markdown templates.
+Instead of writing application code directly, Spec Kit guides your agent through a structured design and validation workflow to build reliable, secure, and compliant cloud foundations.
 
 ---
 
@@ -11,9 +11,9 @@ By treating specifications as executable documentation, Spec Kit guides your AI 
 To use Spec Kit as a custom agent skill:
 
 1. **For Claude Code**:
-   Copy or symlink this directory into your project's `.claude/skills/` directory:
+   Symlink this directory into your project's `.claude/skills/` folder:
    ```bash
-   # From your project root
+   # Run from your project root
    mkdir -p .claude/skills/
    ln -s /path/to/spec-kit .claude/skills/spec-kit
    ```
@@ -29,50 +29,49 @@ Once loaded, Claude will automatically discover the `SKILL.md` file and understa
 Invoke the following slash commands in your chat with the agent:
 
 ### 1. `/speckit.constitution`
-Establish your project's core principles, design guidelines, and tech constraints in `CONSTITUTION.md` at the project root.
+Establish your project's cloud standards, cost limits, and security constraints in `CONSTITUTION.md` at the project root.
 ```bash
 /speckit.constitution
 ```
 
-### 2. `/speckit.specify [feature_description]`
-Describe the feature in natural language. The agent will:
-- Auto-generate a feature number and short name (e.g., `specs/001-user-login/`).
-- Switch to a feature-specific Git branch.
-- Generate `spec.md` with prioritized user stories using Given-When-Then acceptance scenarios.
+### 2. `/speckit.specify [infrastructure_description]`
+Describe the infrastructure or pipeline requirements. The agent will:
+- Auto-generate a feature number and short name (e.g., `specs/001-vpc-setup/`).
+- Create a feature-specific Git branch.
+- Generate `spec.md` detailing operational journeys, security rules, and SLO/SLI metrics.
 ```bash
-/speckit.specify "Create a drag-and-drop dashboard for photo albums"
+/speckit.specify "Set up an AWS ECS cluster on Fargate with a private database and secure public load balancer"
 ```
 
 ### 3. `/speckit.plan`
-The agent reads your specification, verifies compliance with `CONSTITUTION.md`, and designs a technical architecture:
-- Generates `plan.md` outlining the code structures and dependencies.
-- Generates `research.md`, `data-model.md`, `quickstart.md`, and interface `contracts/`.
+The agent reads your spec, checks compliance against your `CONSTITUTION.md` rules, and designs the architecture:
+- Generates `plan.md` outlining resources, modules, and inputs.
+- Generates `research.md` (cost estimations and IAM matrices), `topology.md` (subnets and traffic rules), and `quickstart.md` (deploy/destroy validation).
 ```bash
 /speckit.plan
 ```
 
 ### 4. `/speckit.tasks`
-The agent breaks down the technical plan into a task checklist:
-- Generates `tasks.md` grouped by user story (enabling incremental MVP verification).
-- Defines parallel implementation opportunities.
+The agent maps your plan into concrete provisioning and configuration tasks:
+- Generates `tasks.md` grouped by component scope (VPC, IAM, Database, ECS, CI/CD, Alerting) to allow incremental deployment and testing.
 ```bash
 /speckit.tasks
 ```
 
 ### 5. `/speckit.implement`
-The agent begins executing the tasks in `tasks.md` sequentially, committing code incrementally, and checking off completed items.
+The agent begins executing the tasks in `tasks.md` sequentially, writing IaC modules or pipeline YAML configs, running static checks (e.g., `tflint`, `checkov`, `tfsec`), and checking off completed items.
 ```bash
 /speckit.implement
 ```
 
 ---
 
-## 🔍 Helper Commands
+## 🔍 SRE & Helper Commands
 
-- `/speckit.clarify`: Use this before planning to prompt the agent to analyze the requirements and ask targeted clarifying questions.
-- `/speckit.analyze`: Verify consistency and ensure all requirements map to technical plans and task items.
-- `/speckit.checklist [focus]`: Create custom quality checklists (e.g., security, performance, SEO) under `specs/<NNN>-<short-name>/checklist-<focus>.md`.
-- `/speckit.taskstoissues`: Convert the `tasks.md` file into formatted templates for GitHub Issues or other trackers.
+- `/speckit.clarify`: Prompt the agent to ask targeted clarifying questions about backup policies, sizing, secrets, and alerting before planning.
+- `/speckit.analyze`: Audit plan documents for security gaps (plaintext secrets, open ports) and cost limits before deployment.
+- `/speckit.checklist [focus]`: Generate validation checklists (e.g., `secops` security reviews, `cost` optimizations, `dr` disaster recovery runs) under `specs/<NNN>-<short-name>/checklist-<focus>.md`.
+- `/speckit.taskstoissues`: Convert your `tasks.md` checkboxes into cards formatted for Jira or GitHub issues.
 
 ---
 
@@ -80,11 +79,12 @@ The agent begins executing the tasks in `tasks.md` sequentially, committing code
 
 ```text
 spec-kit/
-├── SKILL.md                 # Anthropic Custom Skill definition and instructions
+├── SKILL.md                 # Anthropic Custom Skill definition (DevOps/SRE edition)
 ├── README.md                # Easy-to-follow guide (this file)
+├── demo.md                  # Detailed ECS & Terraform walkthrough
 ├── LICENSE                  # MIT License
-├── .gitignore               # Exclusions
-└── templates/               # Structured templates used by the skill
+├── .gitignore               # System exclusions
+└── templates/               # Structured DevOps templates used by the skill
     ├── spec-template.md
     ├── plan-template.md
     ├── tasks-template.md

@@ -1,113 +1,99 @@
-# Implementation Plan: [FEATURE]
+# DevOps Implementation Plan: [INFRASTRUCTURE OR PIPELINE FEATURE]
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link to specs/###-feature-name/spec.md]
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Input**: Infrastructure specification from `/specs/[###-feature-name]/spec.md`
 
 **Note**: This template is filled in during the planning phase. See `SKILL.md` for the full execution workflow.
 
 ## Summary
-
-[Extract from feature spec: primary requirement + technical approach from research]
+[Extract from feature spec: primary infrastructure/CI/CD requirement + technical architecture choices]
 
 ## Technical Context
-
 <!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in an advisory capacity to guide
-  the iteration process.
+  ACTION REQUIRED: Replace the content in this section with the cloud/infra details.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+**Cloud Provider(s) & Region**: [e.g., AWS us-east-1, GCP us-central1, Multi-Cloud or N/A]
 
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+**Infrastructure as Code (IaC)**: [e.g., Terraform 1.6+, Pulumi v3, CloudFormation, Ansible]
 
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+**CI/CD Pipeline Platform**: [e.g., GitHub Actions, GitLab CI, Jenkins, ArgoCD]
 
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
+**Observability & Monitoring**: [e.g., CloudWatch, Prometheus/Grafana, Datadog]
 
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Security & Compliance Scanners**: [e.g., tfsec, checkov, tflint, trivy]
 
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]
+**Target Environments**: [e.g., dev, staging, prod]
 
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
+**Estimated Monthly Cost (approx.)**: [e.g., $120/mo dev, $450/mo prod or NEEDS CLARIFICATION]
 
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
+**Disaster Recovery Strategy**: [e.g., Daily automated snapshots, Multi-Region failover, or N/A]
 
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+---
 
 ## Constitution Check
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 topology design.*
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+[Provide evidence of compliance with project's CONSTITUTION.md: e.g., standard library tools check, region isolation check, IAM checks]
 
-[Gates determined based on constitution file]
+---
 
-## Project Structure
+## Infrastructure & Pipeline Structure
 
 ### Documentation (this feature)
-
 ```text
 specs/[###-feature]/
 ├── plan.md              # Technical implementation plan (this file)
-├── research.md          # Technology choices and research findings
-├── data-model.md        # Schema, databases, and entity definitions
-├── quickstart.md        # Quick validation guide and setup steps
-├── contracts/           # API payloads, interface files, schemas
-└── tasks.md             # Actionable checklist of implementation steps (created next)
+├── research.md          # Technology trade-offs, pricing, and IAM matrices
+├── topology.md          # Networking, VPC subnets, and security group diagrams/layout
+├── quickstart.md        # Local terraform validation, vars config, deploy & destroy guide
+└── contracts/           # Environment variable maps, secrets declarations, Policy-as-Code rules
 ```
 
 ### Source Code (repository root)
 <!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
+  ACTION REQUIRED: Replace the tree below with the concrete IaC and Pipeline layout.
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+# [REMOVE IF UNUSED] Option 1: Terraform multi-environment layout
+terraform/
+├── modules/
+│   ├── vpc/             # VPC network layout
+│   │   ├── main.tf, variables.tf, outputs.tf
+│   ├── compute/         # ECS, EC2, or EKS modules
+│   └── database/        # RDS, Aurora, or DynamoDB modules
+└── environments/
+    ├── dev/             # Dev environment configuration
+    │   ├── main.tf (calls modules), backend.tf (remote state), terraform.tfvars
+    └── prod/            # Prod environment configuration
+        └── main.tf, backend.tf, terraform.tfvars
 
-tests/
-├── contract/
-├── integration/
-└── unit/
+.github/workflows/
+├── deploy-dev.yml       # Dev deployment pipeline
+└── deploy-prod.yml      # Staging & Production promotion pipeline
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+# [REMOVE IF UNUSED] Option 2: Kubernetes Helm Chart structure
+k8s/
+├── base/                # Kustomize base templates
+│   ├── deployment.yaml, service.yaml, ingress.yaml
+├── overlays/
+│   ├── dev/             # Dev patches
+│   └── prod/            # Prod patches
+└── charts/
+    └── [chart-name]/    # Helm chart for application packaging
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+.gitlab-ci.yml           # GitLab CI pipeline configuration
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: [Document the selected IaC/Pipeline structure and reference the paths captured above]
+
+---
 
 ## Complexity Tracking
-
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| [e.g., Multi-region VPC peering] | [e.g., compliance requirement] | [e.g., VPN tunnel rejected due to latency bounds] |

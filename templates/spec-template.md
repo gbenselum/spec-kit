@@ -1,4 +1,4 @@
-# Feature Specification: [FEATURE NAME]
+# Infrastructure & DevOps Specification: [DEVOPS FEATURE NAME]
 
 **Feature Branch**: `[###-feature-name]`
 
@@ -6,126 +6,74 @@
 
 **Status**: Draft
 
-**Input**: User description: "[Brief natural language description of the feature requirements]"
+**Input**: User description: "[Brief natural language description of the cloud infrastructure, CI/CD pipeline, or SRE requirements]"
 
-## User Scenarios & Testing *(mandatory)*
-
+## Operational Journeys & Deployment Testing *(mandatory)*
 <!--
-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+  IMPORTANT: Operational journeys represent the workflows, triggers, and deployment targets.
+  Each journey must be INDEPENDENTLY VERIFIABLE - meaning if you implement just ONE of them,
+  you should still have a viable MVP (Minimum Viable Product) that operates correctly.
 
-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
-  Think of each story as a standalone slice of functionality that can be:
-  - Developed independently
-  - Tested independently
-  - Deployed independently
-  - Demonstrated to users independently
+  Assign priorities (P1, P2, P3, etc.) to each journey, where P1 is the most critical.
 -->
 
-### User Story 1 - [Brief Title] (Priority: P1)
+### Operational Journey 1 - [Brief Title] (Priority: P1)
+[Describe this cloud provisioning or pipeline journey in plain language]
 
-[Describe this user journey in plain language]
+**Why this priority**: [Explain why this is key to the deployment]
 
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+**Independent Verification**: [Describe how this can be tested independently - e.g., "Can be fully verified by running a terraform apply locally and checking resource creation in the console"]
 
 **Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **Given** [initial environment/state], **When** [trigger/provisioning action], **Then** [expected state/resource behavior]
+2. **Given** [initial state], **When** [pipeline execution/deployment trigger], **Then** [expected pipeline outcome/deployment target status]
 
 ---
 
-### User Story 2 - [Brief Title] (Priority: P2)
+### Operational Journey 2 - [Brief Title] (Priority: P2)
+[Describe this alerting, scaling, or recovery journey in plain language]
 
-[Describe this user journey in plain language]
+**Why this priority**: [Explain why this is needed for reliability or security]
 
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently]
+**Independent Verification**: [Describe how this can be tested independently - e.g., "Can be verified by simulating a failover event or load testing"]
 
 **Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. **Given** [running environment], **When** [failure/load condition occurs], **Then** [expected self-healing/alerting action]
 
 ---
 
-### User Story 3 - [Brief Title] (Priority: P3)
+## Infrastructure & Security Requirements *(mandatory)*
 
-[Describe this user journey in plain language]
+### Core Infrastructure Requirements
+- **INF-001**: System MUST provision [specific resource type, e.g., "an AWS ECS Cluster using Fargate launch type"]
+- **INF-002**: Networking MUST isolate [e.g., "database resources in private subnets with no public internet access"]
+- **INF-003**: The provisioning MUST support [e.g., "multi-AZ deployment for RDS to achieve high availability"]
 
-**Why this priority**: [Explain the value and why it has this priority level]
+### Security & IAM Requirements
+- **SEC-001**: IAM roles MUST enforce [e.g., "least-privilege permissions with explicit resource restrictions"]
+- **SEC-002**: Data at rest MUST be [e.g., "encrypted using customer-managed KMS keys"]
+- **SEC-003**: Secrets MUST be [e.g., "fetched at runtime from Secret Manager and never committed to version control"]
 
-**Independent Test**: [Describe how this can be tested independently]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+### Key Cloud Resources
+- **[Resource 1]**: [e.g., AWS VPC (10.0.0.0/16, public/private subnets)]
+- **[Resource 2]**: [e.g., AWS Aurora PostgreSQL Cluster (v15.4, db.t4g.medium)]
 
 ---
 
-[Add more user stories as needed, each with an assigned priority]
+## SRE Metrics & Success Criteria *(mandatory)*
 
-### Edge Cases
+### SLO / SLI Targets
+- **SRE-001**: **Availability SLO**: Cloud environment uptime must achieve [e.g., "99.9% uptime per month"]
+- **SRE-002**: **Deploy Time SLI**: CI/CD pipeline deployment from commit to live must complete in under [e.g., "10 minutes"]
+- **SRE-003**: **Error Alerting**: High-priority alerts must trigger if database connection errors exceed [e.g., "1% of connections over 5 minutes"]
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right edge cases.
--->
+### Cost Bounds
+- **COST-001**: Non-production environment monthly cost MUST NOT exceed [e.g., "$150/month"]
+- **COST-002**: Production infrastructure base cost MUST NOT exceed [e.g., "$800/month"]
 
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+---
 
-## Requirements *(mandatory)*
-
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
-
-### Functional Requirements
-
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
-
-*Example of marking unclear requirements:*
-
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
-
-### Key Entities *(include if feature involves data)*
-
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
-
-## Success Criteria *(mandatory)*
-
-<!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
--->
-
-### Measurable Outcomes
-
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
-
-## Assumptions
-
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right assumptions based on reasonable defaults
-  chosen when the feature description did not specify certain details.
--->
-
-- [Assumption about target users, e.g., "Users have stable internet connectivity"]
-- [Assumption about scope boundaries, e.g., "Mobile support is out of scope for v1"]
-- [Assumption about data/environment, e.g., "Existing authentication system will be reused"]
-- [Dependency on existing system/service, e.g., "Requires access to the existing user profile API"]
+## Assumptions & Dependencies
+- [Assumption about starting state, e.g., "An AWS account with configured root credentials already exists"]
+- [Dependency on external providers, e.g., "Domain registration and SSL cert management is hosted in Cloudflare"]
+- [Scope boundary, e.g., "Cross-region replication is out of scope for v1"]
